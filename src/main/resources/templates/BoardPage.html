@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Board Page</title>
+</head>
+<body>
+<h1>BOARDS</h1>
+<th:block th:if="${not #strings.isEmpty(boardList)}">
+    <table>
+    <tr>
+        <td>BOARDNUMBER</td>
+        <td>TITLE</td>
+        <td>CONTENT</td>
+        <td>WRITER</td>
+        <td>CREATEDATE</td>
+        <td>MODIDATE</td>
+    </tr>
+    <tr th:each="board : ${boardList}">
+        <td th:text="${board.getBoardId()}"></td>
+        <td th:text="${board.getTitle()}"></td>
+        <td th:text="${board.getContent()}"></td>
+        <td th:text="${board.getWriter}"></td>
+        <td th:text="${board.getCreateDate()}"></td>
+        <td th:text="${board.getModiDate()}"></td>
+    </tr>
+    </table>
+</th:block>
+<th:block th:if="${#strings.isEmpty(boardList)}">
+    <h2> EMPTY </h2>
+</th:block>
+</body>
+</html>

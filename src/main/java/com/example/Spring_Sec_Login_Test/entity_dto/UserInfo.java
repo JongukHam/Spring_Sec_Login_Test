@@ -5,15 +5,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.*;
 
 @Entity
 @Builder
-@ToString
+//@ToString
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,7 +24,19 @@ public class UserInfo implements UserDetails {
     // 권한
     private String auth;
 
+//    @Builder.Default
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.REMOVE)
+    private List<Board> boards;
 
+    // 테스트를 위한 toString
+    @Override
+    public String toString(){
+        if(boards.isEmpty()){
+            return "****** [userId = "+userId + " password = " + password + " auth = " + auth + "] [i don't have board] ******";
+        }else{
+            return "****** [userId = "+userId + " password = " + password + " auth = " + auth + "] [i have board] ******";
+        }
+    }
 
 //  ================================Override==================================
     @Override
